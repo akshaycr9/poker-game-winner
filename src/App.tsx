@@ -1,10 +1,17 @@
-import React from "react";
+// src/App.tsx
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import NewGame from "./pages/NewGame";
+import AddPlayers from "./pages/AddPlayers";
 
-const App: React.FC = () => (
-  <div className="min-h-screen bg-gray-100">
-    <NewGame />
-  </div>
-);
+function App() {
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<NewGame />} />
+        <Route path="/add-players" element={<AddPlayers />} />
+      </Routes>
+    </Router>
+  );
+}
 
 export default App;

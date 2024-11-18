@@ -2,9 +2,11 @@ import React from "react";
 import Input from "../components/Input";
 import Button from "../components/Button";
 import { useChipValuesContext } from "../contexts/ChipValuesContext";
+import { useNavigate } from "react-router-dom";
 
 const NewGame: React.FC = () => {
   const { chipValues, setChipValues } = useChipValuesContext();
+  const navigate = useNavigate();
 
   const isFormValid = Object.values(chipValues).every(
     (value) => value !== "" && Number(value) > 0
@@ -16,6 +18,7 @@ const NewGame: React.FC = () => {
 
   const handleAddPlayers = () => {
     console.log("Chip Values Stored in Context:", chipValues);
+    navigate("/add-players");
   };
 
   return (
