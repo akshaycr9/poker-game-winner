@@ -4,6 +4,7 @@ import Button from "../components/Button";
 import Input from "../components/Input";
 import { useNavigate } from "react-router-dom";
 import { usePlayers } from "../contexts/PlayersContext";
+import { routePath } from "../utils/route";
 
 const AddPlayers: React.FC = () => {
   const navigate = useNavigate();
@@ -27,7 +28,7 @@ const AddPlayers: React.FC = () => {
       if (confirmStart) {
         console.log("Game started with players:", players);
         // Navigate to the next step (you can use react-router's useNavigate here)
-        navigate("/game-session");
+        navigate(routePath("game-session"));
       }
     }
   };

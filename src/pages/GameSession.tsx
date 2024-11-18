@@ -4,6 +4,7 @@ import Button from "../components/Button";
 import Input from "../components/Input";
 import { usePlayers } from "../contexts/PlayersContext";
 import { useNavigate } from "react-router-dom";
+import { routePath } from "../utils/route";
 
 const GameSession: React.FC = () => {
   const { players, updatePlayerAmount, addPlayer } = usePlayers();
@@ -82,7 +83,7 @@ const GameSession: React.FC = () => {
     if (confirmEnd) {
       console.log("Game ended with players:", players);
       // Navigate to the final calculation step
-      navigate("/winnings");
+      navigate(routePath("winnings"));
     }
   };
 

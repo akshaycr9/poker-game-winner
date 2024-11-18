@@ -4,6 +4,7 @@ import { usePlayers } from "../contexts/PlayersContext";
 import { useNavigate } from "react-router-dom";
 import Button from "../components/Button";
 import Input from "../components/Input";
+import { routePath } from "../utils/route";
 
 const Winnings = () => {
   const { chipValues, resetChipValues } = useChipValuesContext();
@@ -68,7 +69,7 @@ const Winnings = () => {
   const resetGame = () => {
     resetChipValues();
     resetPlayers();
-    navigate("/");
+    navigate(routePath(""));
   };
 
   return (

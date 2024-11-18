@@ -3,6 +3,7 @@ import Input from "../components/Input";
 import Button from "../components/Button";
 import { useChipValuesContext } from "../contexts/ChipValuesContext";
 import { useNavigate } from "react-router-dom";
+import { routePath } from "../utils/route";
 
 const NewGame: React.FC = () => {
   const { chipValues, setChipValues } = useChipValuesContext();
@@ -18,7 +19,7 @@ const NewGame: React.FC = () => {
 
   const handleAddPlayers = () => {
     console.log("Chip Values Stored in Context:", chipValues);
-    navigate("/add-players");
+    navigate(routePath("add-players"));
   };
 
   return (
