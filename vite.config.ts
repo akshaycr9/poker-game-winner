@@ -7,15 +7,15 @@ import react from "@vitejs/plugin-react";
 //   base: "/poker-game-winner/",
 // });
 
-export default defineConfig(({ mode, command }) => {
-  if (command === "build") {
-    return {
-      plugins: [react()],
-      base: "/poker-game-winner/",
-    };
-  } else {
-    return {
-      plugins: [react()],
-    };
-  }
+export default defineConfig(({}) => {
+  // if (command === "build") {
+  return {
+    plugins: [react()],
+    base: "/poker-game-winner/",
+  };
+  // } else {
+  //   return {
+  //     plugins: [react()],
+  //   };
+  // }
 });
