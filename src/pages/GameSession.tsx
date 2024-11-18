@@ -1,11 +1,12 @@
 // src/pages/GameSession.tsx
 import React, { useState } from "react";
-import { useChipValuesContext } from "../contexts/ChipValuesContext";
 import Button from "../components/Button";
 import Input from "../components/Input";
+import { usePlayers } from "../contexts/PlayersContext";
+import { useNavigate } from "react-router-dom";
 
 const GameSession: React.FC = () => {
-  const { players, updatePlayerAmount, addPlayer } = useChipValuesContext();
+  const { players, updatePlayerAmount, addPlayer } = usePlayers();
   const [borrower, setBorrower] = useState("");
   const [lender, setLender] = useState("");
   const [amount, setAmount] = useState<number>(0);
@@ -14,6 +15,8 @@ const GameSession: React.FC = () => {
   const [newPlayerAmount, setNewPlayerAmount] = useState<number>(0);
   const [transactions, setTransactions] = useState<string[]>([]);
   const [newPlayerSource, setNewPlayerSource] = useState<string>("Bank");
+
+  const navigate = useNavigate();
 
   const totalBank = Math.abs(
     players.reduce((sum, player) => sum + player.amount, 0)
@@ -79,6 +82,7 @@ const GameSession: React.FC = () => {
     if (confirmEnd) {
       console.log("Game ended with players:", players);
       // Navigate to the final calculation step
+      navigate("/winnings");
     }
   };
 

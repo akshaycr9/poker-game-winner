@@ -1,19 +1,19 @@
 // src/pages/AddPlayers.tsx
 import React, { useState } from "react";
-import { useChipValuesContext } from "../contexts/ChipValuesContext";
 import Button from "../components/Button";
 import Input from "../components/Input";
 import { useNavigate } from "react-router-dom";
+import { usePlayers } from "../contexts/PlayersContext";
 
 const AddPlayers: React.FC = () => {
   const navigate = useNavigate();
-  const { players, setPlayers } = useChipValuesContext();
+  const { players, addPlayer } = usePlayers();
   const [name, setName] = useState<string>("");
   const [amount, setAmount] = useState<number>(0);
 
   const handleAddPlayer = () => {
     if (name.trim() && amount > 0) {
-      setPlayers([...players, { name, amount: Number(-amount), winning: 0 }]);
+      addPlayer({ name, amount: Number(-amount), winning: 0 });
       setName("");
       setAmount(0);
     }
