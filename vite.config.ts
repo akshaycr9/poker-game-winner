@@ -8,11 +8,7 @@ import react from "@vitejs/plugin-react";
 // });
 
 export default defineConfig(({ mode, command }) => {
-  if (mode === "development") {
-    return {
-      plugins: [react()],
-    };
-  } else if (command === "build") {
+  if (command === "build") {
     return {
       plugins: [react()],
       base: "/poker-game-winner/",
