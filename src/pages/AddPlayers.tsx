@@ -3,15 +3,17 @@ import React, { useState } from "react";
 import { useChipValuesContext } from "../contexts/ChipValuesContext";
 import Button from "../components/Button";
 import Input from "../components/Input";
+import { useNavigate } from "react-router-dom";
 
 const AddPlayers: React.FC = () => {
+  const navigate = useNavigate();
   const { players, setPlayers } = useChipValuesContext();
   const [name, setName] = useState<string>("");
   const [amount, setAmount] = useState<number>(0);
 
   const handleAddPlayer = () => {
     if (name.trim() && amount > 0) {
-      setPlayers([...players, { name, amount: Number(amount), winning: 0 }]);
+      setPlayers([...players, { name, amount: Number(-amount), winning: 0 }]);
       setName("");
       setAmount(0);
     }
@@ -25,6 +27,7 @@ const AddPlayers: React.FC = () => {
       if (confirmStart) {
         console.log("Game started with players:", players);
         // Navigate to the next step (you can use react-router's useNavigate here)
+        navigate("/game-session");
       }
     }
   };
