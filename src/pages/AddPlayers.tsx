@@ -10,13 +10,13 @@ const AddPlayers: React.FC = () => {
   const navigate = useNavigate();
   const { players, addPlayer } = usePlayers();
   const [name, setName] = useState<string>("");
-  const [amount, setAmount] = useState<number>(0);
+  const [amount, setAmount] = useState<number | string>("");
 
   const handleAddPlayer = () => {
-    if (name.trim() && amount > 0) {
+    if (name.trim() && Number(amount) > 0) {
       addPlayer({ name, amount: Number(-amount), winning: 0 });
       setName("");
-      setAmount(0);
+      setAmount("");
     }
   };
 
@@ -40,6 +40,7 @@ const AddPlayers: React.FC = () => {
         <div className="flex flex-col gap-4">
           <div className="flex gap-2">
             <Input
+              type="text"
               label="Name"
               value={name}
               onChange={(e) => setName(e.target.value)}
@@ -49,13 +50,16 @@ const AddPlayers: React.FC = () => {
               label="Amount Taken"
               type="number"
               value={amount}
-              onChange={(e) => setAmount(Number(e.target.value))}
+              onChange={(e) => setAmount(e.target.value)}
               placeholder="Enter amount"
+              inputMode="numeric"
+              pattern="[0-9]*"
+              min="0"
             />
           </div>
           <Button
             onClick={handleAddPlayer}
-            disabled={!name.trim() || amount <= 0}
+            disabled={!name.trim() || Number(amount) <= 0}
           >
             Add Player
           </Button>

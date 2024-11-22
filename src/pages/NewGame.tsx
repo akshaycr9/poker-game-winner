@@ -28,11 +28,15 @@ const NewGame: React.FC = () => {
       <div className="w-full max-w-md space-y-4">
         {["black", "red", "white", "green"].map((color) => (
           <Input
+            type="number"
             key={color}
             label={color.charAt(0).toUpperCase() + color.slice(1)}
             value={chipValues[color as keyof typeof chipValues]}
             onChange={(e) => handleInputChange(color, e.target.value)}
             placeholder={`Enter value for ${color}`}
+            inputMode="numeric"
+            pattern="[0-9]*"
+            min="0"
           />
         ))}
       </div>

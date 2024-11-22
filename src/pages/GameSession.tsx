@@ -10,10 +10,10 @@ const GameSession: React.FC = () => {
   const { players, updatePlayerAmount, addPlayer } = usePlayers();
   const [borrower, setBorrower] = useState("");
   const [lender, setLender] = useState("");
-  const [amount, setAmount] = useState<number>(0);
+  const [amount, setAmount] = useState<number | string>("");
   const [showPopup, setShowPopup] = useState(false);
   const [newPlayerName, setNewPlayerName] = useState("");
-  const [newPlayerAmount, setNewPlayerAmount] = useState<number>(0);
+  const [newPlayerAmount, setNewPlayerAmount] = useState<number | string>("");
   const [transactions, setTransactions] = useState<string[]>([]);
   const [newPlayerSource, setNewPlayerSource] = useState<string>("Bank");
 
@@ -24,7 +24,7 @@ const GameSession: React.FC = () => {
   );
 
   const handleBorrow = () => {
-    if (borrower && lender && amount > 0) {
+    if (borrower && lender && Number(amount) > 0) {
       if (lender === "Bank") {
         updatePlayerAmount(borrower, "", Number(amount));
         setTransactions((prev) => [
@@ -41,11 +41,11 @@ const GameSession: React.FC = () => {
     }
     setBorrower("");
     setLender("");
-    setAmount(0);
+    setAmount("");
   };
 
   const handleAddPlayer = () => {
-    if (newPlayerName && newPlayerAmount > 0) {
+    if (newPlayerName && Number(newPlayerAmount) > 0) {
       // Update amounts based on the selected source
       if (newPlayerSource === "Bank") {
         updatePlayerAmount(newPlayerName, "", Number(newPlayerAmount));
@@ -72,7 +72,7 @@ const GameSession: React.FC = () => {
 
       // Reset popup fields
       setNewPlayerName("");
-      setNewPlayerAmount(0);
+      setNewPlayerAmount("");
       setNewPlayerSource("Bank");
       setShowPopup(false);
     }
@@ -128,12 +128,15 @@ const GameSession: React.FC = () => {
           label="Amount"
           type="number"
           value={amount}
-          onChange={(e) => setAmount(Number(e.target.value))}
+          onChange={(e) => setAmount(e.target.value)}
           placeholder="Enter amount"
+          inputMode="numeric"
+          pattern="[0-9]*"
+          min="0"
         />
         <Button
           onClick={handleBorrow}
-          disabled={!borrower || !lender || amount <= 0}
+          disabled={!borrower || !lender || Number(amount) <= 0}
         >
           Create Entry
         </Button>
@@ -193,8 +196,11 @@ const GameSession: React.FC = () => {
               label="Amount"
               type="number"
               value={newPlayerAmount}
-              onChange={(e) => setNewPlayerAmount(Number(e.target.value))}
+              onChange={(e) => setNewPlayerAmount(e.target.value)}
               placeholder="Enter amount"
+              inputMode="numeric"
+              pattern="[0-9]*"
+              min="0"
             />
             <select
               className="border rounded px-3 py-2 w-full mt-2"

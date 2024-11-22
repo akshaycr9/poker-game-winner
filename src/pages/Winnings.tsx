@@ -13,12 +13,12 @@ const Winnings = () => {
 
   // State to track color counts
   const [colorCounts, setColorCounts] = useState<
-    Record<string, Record<string, number>>
+    Record<string, Record<string, string>>
   >(
     players.reduce((acc, player) => {
-      acc[player.name] = { black: 0, red: 0, white: 0, green: 0 };
+      acc[player.name] = { black: "", red: "", white: "", green: "" };
       return acc;
-    }, {} as Record<string, Record<string, number>>)
+    }, {} as Record<string, Record<string, string>>)
   );
 
   // State to store calculated total winnings
@@ -31,7 +31,7 @@ const Winnings = () => {
   const handleColorCountChange = (
     playerName: string,
     color: string,
-    value: number
+    value: string
   ) => {
     setColorCounts((prev) => ({
       ...prev,
@@ -46,10 +46,10 @@ const Winnings = () => {
   const calculateWinnings = (playerName: string) => {
     const counts = colorCounts[playerName];
     const totalValue =
-      counts.black * Number(chipValues.black) +
-      counts.red * Number(chipValues.red) +
-      counts.white * Number(chipValues.white) +
-      counts.green * Number(chipValues.green);
+      Number(counts.black) * Number(chipValues.black) +
+      Number(counts.red) * Number(chipValues.red) +
+      Number(counts.white) * Number(chipValues.white) +
+      Number(counts.green) * Number(chipValues.green);
     const winnings = totalValue / 2;
 
     updatePlayerWinnings(playerName, winnings);
@@ -89,13 +89,12 @@ const Winnings = () => {
                   <Input
                     label="Count"
                     type="number"
+                    inputMode="numeric"
+                    pattern="[0-9]*"
+                    min="0"
                     value={colorCounts[player.name][color]}
                     onChange={(e) =>
-                      handleColorCountChange(
-                        player.name,
-                        color,
-                        Number(e.target.value)
-                      )
+                      handleColorCountChange(player.name, color, e.target.value)
                     }
                   />
                 </div>
